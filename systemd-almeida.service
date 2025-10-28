@@ -1,0 +1,14 @@
+[Unit]
+Description=Almeida API (Gunicorn)
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/almeida_system
+Environment="ENV=prod"
+ExecStart=/opt/almeida_system/.venv/bin/gunicorn -k uvicorn.workers.UvicornWorker -w 3 -b 0.0.0.0:8060 app.main:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
